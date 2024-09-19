@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layout.template')
 
 @section('content')
     <div class="card card-outline card-primary">
@@ -13,17 +13,17 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
             @if (session('error'))
-                <div class="alert alert-error">{{ session('error') }}</div>
+                <div class="alert alert-danger">{{ session('error') }}</div> <!-- Change class to 'alert-danger' -->
             @endif
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="level_id" id="level_id" required>
+                            <select class="form-control" name="level_id" id="level_id">
                                 <option value="">-- Semua --</option>
                                 @foreach ($level as $i)
-                                    <option value="{{ $i->level_id }}">{{ $i->level_name }}</option>
+                                    <option value="{{ $i->level_id }}">{{ $i->nama_level }}</option>
                                 @endforeach
                             </select>
                             <small class="form-text text-muted">Nama Level</small>
@@ -35,7 +35,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Level Code </th>
+                        <th>Level Code</th>
                         <th>Nama Level</th>
                         <th>Aksi</th>
                     </tr>
@@ -54,33 +54,38 @@
                 serverSide: true,
                 ajax: {
                     "url": "{{ url('level/list') }}",
-                    "dataType": "json",
                     "type": "POST",
                     "data": function(d) {
+                        d._token = '{{ csrf_token() }}'; // Add CSRF token
                         d.level_id = $('#level_id').val();
                     }
                 },
-                columns: [{
-                    data: "DT_RowIndex",
-                    className: "text-center",
-                    orderable: false,
-                    searchable: false
-                },{
-                    data: "level_code",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                }, {
-                    data: "level_name",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },{
-                    data: "aksi",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }]
+                columns: [
+                    {
+                        data: "DT_RowIndex",
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: "kode_level",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "nama_level",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "aksi",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
             });
             $('#level_id').on('change', function() {
                 dataLevel.ajax.reload();

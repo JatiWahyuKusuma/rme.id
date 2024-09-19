@@ -15,7 +15,7 @@ use App\Http\Controllers\LevelController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.template');
 });
 
 Route::group(['prefix' => 'level'], function () {
@@ -28,4 +28,3 @@ Route::group(['prefix' => 'level'], function () {
     Route::put('/{id}', [LevelController::class, 'update']);
     Route::delete('/{id}', [LevelController::class, 'destroy']);
 });
-a
