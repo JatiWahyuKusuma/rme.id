@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('acuan');
             $table->string('kabupaten');
             $table->string('kecamatan');
-            $table->string('luas(ha)');
+            $table->string('luas_ha');
             $table->date('masa_berlaku_iup')->nullable();
             $table->date('masa_berlaku_ppkh')->nullable();
             $table->timestamps();

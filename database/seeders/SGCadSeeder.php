@@ -29,7 +29,7 @@ class SGCadSeeder extends Seeder
                 'Acuan' => "Neraca",
                 'Kabupaten' => "Rembang",
                 'Kecamatan' => "Bulu",
-                'Luas(ha)' => "?",  
+                'Luas_ha' => null,  
                 'masa_berlaku_iup' =>null,
                 'masa_berlaku_ppkh' =>null,
             ],
@@ -48,7 +48,7 @@ class SGCadSeeder extends Seeder
                 'Acuan' => "Neraca",
                 'Kabupaten' => "Rembang",
                 'Kecamatan' => "Gunem",
-                'Luas(ha)' => 400,  
+                'Luas_ha' => 400,  
                 'masa_berlaku_iup' =>null,
                 'masa_berlaku_ppkh' =>null,
             ],
@@ -67,7 +67,7 @@ class SGCadSeeder extends Seeder
                 'Acuan' => "PT Semen Indonesia, Lapoan Eksplorasi, 2016", // Hapus tanda koma di awal
                 'Kabupaten' => "Rembang",
                 'Kecamatan' => "Gunem",
-                'Luas(ha)' => 293.1, // Hapus tanda kutip dan koma
+                'Luas_ha' => 293.1, // Hapus tanda kutip dan koma
                 'masa_berlaku_iup' => Carbon::create(2037, 3, 2),
                 'masa_berlaku_ppkh' => null,
             ],

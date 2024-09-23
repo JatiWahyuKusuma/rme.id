@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sg_cad_bb', function (Blueprint $table) {
             $table->id('no');
-            $table->integer('jarak');
+            $table->decimal('jarak', 10, 1)->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
             $table->integer('no_id');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('acuan');
             $table->string('kabupaten');
             $table->string('kecamatan');
-            $table->string('luas(ha)');
+            $table->decimal('luas_ha', 10, 1)->nullable();
             $table->date('masa_berlaku_iup')->nullable();
             $table->date('masa_berlaku_ppkh')->nullable();
             $table->timestamps();

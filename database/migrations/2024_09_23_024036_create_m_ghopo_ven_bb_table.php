@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sg_ven_bb', function (Blueprint $table) {
+        Schema::create('ghopo_ven_bb', function (Blueprint $table) {
             $table->id('no');
             $table->integer('jarak');
-            $table->decimal('koordinat');
+            $table->decimal('latitude', 10, 6)->nullable();
+            $table->decimal('longitude', 10, 6)->nullable();
             $table->string('vendor');
             $table->string('komoditi');
             $table->string('desa');
             $table->string('kecamatan');
             $table->string('kabupaten');
-            $table->integer('kap(ton/thn)');
-            $table->string('konsumsi(ton/thn)');
+            $table->integer('kap_ton_thn'); 
+            $table->string('konsumsi_ton_thn'); 
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sg_ven_bb');
+        Schema::dropIfExists('ghopo_ven_bb');
     }
 };

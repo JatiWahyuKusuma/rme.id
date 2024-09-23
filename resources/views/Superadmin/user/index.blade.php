@@ -5,7 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('level/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -20,23 +20,24 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="level_id" id="level_id">
+                            <select class="form-control" name="no" id="no">
                                 <option value="">-- Semua --</option>
-                                @foreach ($level as $i)
-                                    <option value="{{ $i->level_id }}">{{ $i->nama_level }}</option>
+                                @foreach ($user as $i)
+                                    <option value="{{ $i->no }}">{{ $i->nama }}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Nama Level</small>
+                            <small class="form-text text-muted">Nama</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <table class="table-bordered table-striped table-hover table-sm table" id="table_level">
+            <table class="table-bordered table-striped table-hover table-sm table" id="table_user">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Level Code</th>
-                        <th>Nama Level</th>
+                        <th>No</th>
+                        <th>Level Id</th>
+                        <th>Nama</th>
+                        <th>Email</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -51,21 +52,19 @@
     th {
         text-align: center;
     }
-
-     /* Control the width of the action buttons */
 </style>
 @endpush
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataLevel = $('#table_level').DataTable({
+            var dataLevel = $('#table_user').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('level/list') }}",
+                    "url": "{{ url('user/list') }}",
                     "type": "POST",
                     "data": function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.level_id = $('#level_id').val();
+                        d.level_id = $('#no').val();
                     }
                 },
                 columns: [
@@ -76,13 +75,19 @@
                         searchable: false
                     },
                     {
-                        data: "kode_level",
+                        data: "level_id",
                         className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
-                        data: "nama_level",
+                        data: "nama",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "email",
                         className: "",
                         orderable: true,
                         searchable: true
@@ -95,7 +100,7 @@
                     }
                 ]
             });
-            $('#level_id').on('change', function() {
+            $('#no').on('change', function() {
                 dataLevel.ajax.reload();
             });
         });
