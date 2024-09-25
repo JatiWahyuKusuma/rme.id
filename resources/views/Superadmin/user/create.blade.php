@@ -12,8 +12,11 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Level ID</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="level_id" name="level_id"
-                            value="{{ old('level_id') }}" required>
+                        <select class="form-control" id="level_id" name="level_id" required>
+                            <option value="">-- Pilih Level --</option>
+                            <option value="1" {{ old('level_id') == '1' ? 'selected' : '' }}>Super Admin</option>
+                            <option value="2" {{ old('level_id') == '2' ? 'selected' : '' }}>Admin Opco</option>
+                        </select>
                         @error('level_id')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
@@ -32,7 +35,7 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Email</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="email" name="email"
+                        <input type="email" class="form-control" id="email" name="email"
                             value="{{ old('email') }}" required>
                         @error('email')
                             <small class="form-text text-danger">{{ $message }}</small>
@@ -42,7 +45,7 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Password</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="password" name="password"
+                        <input type="password" class="form-control" id="password" name="password"
                             value="{{ old('password') }}" required>
                         @error('password')
                             <small class="form-text text-danger">{{ $message }}</small>
@@ -60,7 +63,9 @@
         </div>
     </div>
 @endsection
+
 @push('css')
 @endpush
+
 @push('js')
 @endpush

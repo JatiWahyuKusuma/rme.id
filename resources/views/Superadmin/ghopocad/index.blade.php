@@ -20,11 +20,13 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="no" id="no">
+                            <select class="form-control" name="komoditi" id="komoditi">
                                 <option value="">-- Semua --</option>
-                                @foreach ($ghopocad as $i)
-                                    <option value="{{ $i->no }}">{{ $i->komoditi }}</option>
-                                @endforeach
+                                <option value="Cad Batugamping">Cad Batugamping</option>
+                                <option value="Pot Batugamping">Pot Batugamping</option>
+                                <option value="Cad Lempung">Cad Lempung</option>
+                                <option value="Pot Lempung">Pot Lempung</option>
+                                <option value="Pot Pasirkuarsa">Pot Pasirkuarsa</option>
                             </select>
                             <small class="form-text text-muted">Komoditi</small>
                         </div>
@@ -58,136 +60,124 @@
 
 @push('css')
     <style>
+        th {
+            text-align: center;
+        }
         .aksi-buttons {
-            display: flex; /* Membuat tombol dalam satu baris (horizontal) */
-            gap: 2px; /* Memberikan jarak antar tombol */
+            display: flex;
+            gap: 2px;
         }
 
         .aksi-buttons a, .aksi-buttons button {
-            flex-grow: 1; /* Semua tombol memiliki lebar yang sama */
-            width: 75px; /* Ukuran lebar tombol bisa diatur sesuai kebutuhan */
-            text-align: center; /* Agar teks dalam tombol rata tengah */
+            flex-grow: 1;
+            width: 75px;
+            text-align: center;
         }
     </style>
 @endpush
 
 @push('js')
-    <script>
-        $(document).ready(function() {
-            var dataLevel = $('#table_ghopocad').DataTable({
-                serverSide: true,
-                ajax: {
-                    "url": "{{ url('ghopocad/list') }}",
-                    "type": "POST",
-                    "data": function(d) {
-                        d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.no = $('#no').val();
-                    }
+<script>
+    $(document).ready(function() {
+        var dataTable = $('#table_ghopocad').DataTable({
+            serverSide: true,
+            ajax: {
+                "url": "{{ url('ghopocad/list') }}",
+                "type": "POST",
+                "data": function(d) {
+                    d._token = '{{ csrf_token() }}';
+                    d.komoditi = $('#komoditi').val(); // Use the correct filter value
+                }
+            },
+            columns: [
+                {
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
                 },
-                columns: [
-                    {
-                        data: "DT_RowIndex",
-                        className: "text-center",
-                        orderable: false,
-                        searchable: false
+                {
+                    data: "jarak",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "komoditi",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "lokasi_iup",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "tipe_sd_cadangan",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "sd_cadangan_ton",
+                    orderable: true,
+                    searchable: true,
+                    render: function(data, type, row){
+                        return new Intl.NumberFormat('id-ID').format(data);
                     },
-                    {
-                        data: "jarak",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "komoditi",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "lokasi_iup",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "tipe_sd_cadangan",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "sd_cadangan_ton",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "catatan",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "status_penyelidikan",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "acuan",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "kabupaten",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "kecamatan",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "luas_ha",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "masa_berlaku_iup",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "masa_berlaku_ppkh",
-                        className: "",
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: "aksi",
-                        render: function(data, type, row) {
-                            return `
-                                <div class="aksi-buttons">
-                                    <a href="ghopocad/${row.no}" class="btn btn-sm btn-info">Detail</a>
-                                    <a href="ghopocad/${row.no}/edit" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger btn-delete" data-id="${row.no}">Hapus</button>
-                                </div>
-                            `;
-                        },
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-            $('#no').on('change', function() {
-                dataLevel.ajax.reload();
-            });
+                    width: "150px"
+                },
+                {
+                    data: "catatan",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "status_penyelidikan",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "acuan",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "kabupaten",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "kecamatan",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "luas_ha",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "masa_berlaku_iup",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "masa_berlaku_ppkh",
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: "aksi",
+                    orderable: false,
+                    searchable: false,
+                    width: "170px"
+                }
+            ]
         });
-    </script>
+
+        // Event listener for filter
+        $('#komoditi').on('change', function() {
+            dataTable.ajax.reload(); // Reload data when filter changes
+        });
+    });
+</script>
 @endpush

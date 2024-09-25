@@ -11,7 +11,7 @@ class GhopoCadController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Cadangan dan Potensi Bahan Baku di SIG - GHOPO Tuban',
+            'title' => 'Cadangan dan Potensi Bahan Baku di SIG - GHOPO Tuban',
             'list' => ['Home', 'GHOPO Tuban']
         ];
 
@@ -67,22 +67,22 @@ class GhopoCadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jarak' => 'required|integer',
+            'jarak' => 'required|numeric',
             'latitude' => 'required|numeric', 
             'longitude' => 'required|numeric',
-            'no_id' => 'required|integer',
+            'no_id' => 'nullable|integer',
             'komoditi' => 'required|string',
             'lokasi_iup' => 'required|string',
             'tipe_sd_cadangan' => 'required|string',
             'sd_cadangan_ton' => 'required|integer',
-            'catatan' => 'required|string',
-            'status_penyelidikan' => 'required|string',
-            'acuan' => 'required|string',
+            'catatan' => 'nullable|string',
+            'status_penyelidikan' => 'nullable|string',
+            'acuan' => 'nullable|string',
             'kabupaten' => 'required|string',
             'kecamatan' => 'required|string',
-            'luas_ha' => 'required|string',
-            'masa_berlaku_iup' => 'required',
-            'masa_berlaku_ppkh' => 'required',
+            'luas_ha' => 'nullable|numeric',
+            'masa_berlaku_iup' => 'nullable',
+            'masa_berlaku_ppkh' => 'nullable',
             
         ]);
 
@@ -106,7 +106,7 @@ class GhopoCadController extends Controller
 
         ]);
 
-        return redirect('/ghopocad')->with('success', 'Data ghopocad berhasil ditambahkan');
+        return redirect('/ghopocad')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function show($id)
@@ -115,7 +115,7 @@ class GhopoCadController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail Data GHOPO Cadangan dan Potensi Bahan Baku di SIG',
-            'list' => ['Home', 'ghopocad', 'Detail']
+            'list' => ['Home', 'GHOPO Tuban', 'Detail']
         ];
 
         $page = (object)[
@@ -148,22 +148,22 @@ class GhopoCadController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jarak' => 'required|integer',
+            'jarak' => 'required|numeric',
             'latitude' => 'required|numeric', 
             'longitude' => 'required|numeric',
-            'no_id' => 'required|integer',
+            'no_id' => 'nullable|integer',
             'komoditi' => 'required|string',
             'lokasi_iup' => 'required|string',
             'tipe_sd_cadangan' => 'required|string',
             'sd_cadangan_ton' => 'required|integer',
-            'catatan' => 'required|string',
-            'status_penyelidikan' => 'required|string',
-            'acuan' => 'required|string',
+            'catatan' => 'nullable|string',
+            'status_penyelidikan' => 'nullable|string',
+            'acuan' => 'nullable|string',
             'kabupaten' => 'required|string',
             'kecamatan' => 'required|string',
-            'luas_ha' => 'required|string',
-            'masa_berlaku_iup' => 'required',
-            'masa_berlaku_ppkh' => 'required',
+            'luas_ha' => 'nullable|numeric',
+            'masa_berlaku_iup' => 'nullable',
+            'masa_berlaku_ppkh' => 'nullable',
         ]);
 
         GhopoCadModel::find($id)->update([
@@ -184,7 +184,7 @@ class GhopoCadController extends Controller
             'masa_berlaku_iup' => $request->masa_berlaku_iup,
             'masa_berlaku_ppkh' => $request->masa_berlaku_ppkh
         ]);
-        return redirect('/ghopocad')->with('success', 'Data ghopocad berhasil diubah');
+        return redirect('/ghopocad')->with('success', 'Data berhasil diubah');
     }
     public function destroy($id)
     {

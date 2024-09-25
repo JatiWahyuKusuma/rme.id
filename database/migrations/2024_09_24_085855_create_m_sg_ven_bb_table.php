@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sg_ven_bb', function (Blueprint $table) {
             $table->id('no');
-            $table->integer('jarak');
+            $table->decimal('jarak', 10, 1)->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
             $table->string('vendor');

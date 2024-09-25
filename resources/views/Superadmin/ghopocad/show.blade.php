@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <th>No ID</th>
-                        <td>{{ $ghopocad->no_id }}</td>
+                        <td>{{ number_format($ghopocad->no_id, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <th>Komoditi</th>
@@ -48,7 +48,7 @@
                     </tr>
                     <tr>
                         <th>SD/Cadangan(ton)</th>
-                        <td>{{ $ghopocad->sd_cadangan_ton }}</td>
+                        <td>{{ number_format($ghopocad->sd_cadangan_ton, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <th>catatan</th>
@@ -82,16 +82,30 @@
                         <th>Masa Berlaku PPKH</th>
                         <td>{{ $ghopocad->masa_berlaku_ppkh }}</td>
                     </tr>
-                
-
                 </table>
             @endempty
-            <a href="{{ url('ghopocad') }}" class="btn btn-sm btn-default mt 2">Kembali</a>
+            <a href="{{ url('ghopocad') }}" class="btn btn-sm btn-primary mt-4 mb-2">Kembali</a>
         </div>
     </div>
 @endsection
 
 @push('css')
+<style>
+    /* Add spacing and improve button styling */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    
+    /* Adjust margin and spacing for better layout */
+    .mt-4 {
+        margin-top: 1.5rem !important;
+    }
+    .mb-2 {
+        margin-bottom: 0.75rem !important;
+    }
+</style>
 @endpush
 
 @push('js')

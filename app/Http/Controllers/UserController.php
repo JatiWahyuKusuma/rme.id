@@ -106,12 +106,12 @@ class UserController extends Controller
         $user = UserModel::find($id);
 
         $breadcrumb = (object) [
-            'title' => 'Edit user',
-            'list' => ['Home', 'user', 'Edit']
+            'title' => 'Edit User',
+            'list' => ['Home', 'User', 'Edit']
         ];
 
         $page = (object)[
-            'title' => 'Edit user'
+            'title' => 'Edit User'
         ];
 
         $activeMenu = 'user';
@@ -125,14 +125,14 @@ class UserController extends Controller
             'level_id' => 'required|integer',
             'nama' => 'required|string',
             'email' => 'required|email',
-            'password ' => 'required|string|min:8'
+            'password' => 'required|string|min:8'
         ]);
 
         UserModel::find($id)->update([
             'level_id' => $request->level_id,
             'nama' => $request->nama,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $request->password,
         ]);
         return redirect('/user')->with('success', 'Data user berhasil diubah');
     }

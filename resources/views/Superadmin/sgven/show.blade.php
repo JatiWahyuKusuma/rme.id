@@ -60,12 +60,28 @@
                     </tr>
                 </table>
             @endempty
-            <a href="{{ url('sgven') }}" class="btn btn-sm btn-default mt 2">Kembali</a>
+            <a href="{{ url('sgven') }}" class="btn btn-sm btn-primary mt-4 mb-2">Kembali</a>
         </div>
     </div>
 @endsection
 
 @push('css')
+<style>
+    /* Add spacing and improve button styling */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    
+    /* Adjust margin and spacing for better layout */
+    .mt-4 {
+        margin-top: 1.5rem !important;
+    }
+    .mb-2 {
+        margin-bottom: 0.75rem !important;
+    }
+</style>
 @endpush
 
 @push('js')

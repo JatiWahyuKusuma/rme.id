@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-1 control-label col-form-label">Tipp SD/Cadangan</label>
+                        <label class="col-1 control-label col-form-label">Tipe SD/Cadangan</label>
                         <div class="col-11">
                             <input type="text" class="form-control" id="tipe_sd_cadangan" name="tipe_sd_cadangan"
                                 value="{{ old('tipe_sd_cadangan', $ghopocad->tipe_sd_cadangan) }}" required>
@@ -151,7 +151,7 @@
                         <label class="col-1 control-label col-form-label">Luas(Ha)</label>
                         <div class="col-11">
                             <input type="text" class="form-control" id="luas_ha" name="luas_ha"
-                                value="{{ old('luas_ha', $ghopocad->luas_ha) }}" required>
+                                value="{{ old('luas_ha', $ghopocad->luas_ha) }}">
                             @error('luas_ha')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
@@ -161,7 +161,7 @@
                         <label class="col-1 control-label col-form-label">Masa Berlaku IUP</label>
                         <div class="col-11">
                             <input type="date" class="form-control" id="masa_berlaku_iup" name="masa_berlaku_iup"
-                                value="{{ old('masa_berlaku_iup', $ghopocad->masa_berlaku_iup) }}" required>
+                                value="{{ old('masa_berlaku_iup', $ghopocad->masa_berlaku_iup) }}" >
                             @error('masa_berlaku_iup')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
@@ -171,7 +171,7 @@
                         <label class="col-1 control-label col-form-label">Masa Berlaku PPKH</label>
                         <div class="col-11">
                             <input type="date" class="form-control" id="masa_berlaku_ppkh" name="masa_berlaku_ppkh"
-                                value="{{ old('masa_berlaku_ppkh', $ghopocad->masa_berlaku_ppkh) }}" required>
+                                value="{{ old('masa_berlaku_ppkh', $ghopocad->masa_berlaku_ppkh) }}" >
                             @error('masa_berlaku_ppkh')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror

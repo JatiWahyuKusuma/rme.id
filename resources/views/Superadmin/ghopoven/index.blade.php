@@ -13,18 +13,18 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
             @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div> <!-- Change class to 'alert-danger' -->
+                <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="no" id="no">
+                            <select class="form-control" name="komoditi" id="komoditi">
                                 <option value="">-- Semua --</option>
-                                @foreach ($ghopoven as $i)
-                                    <option value="{{ $i->no }}">{{ $i->komoditi }}</option>
-                                @endforeach
+                                <option value="Purified Gypsum">Purified Gypsum</option>
+                                <option value="Copper Slag">Copper Slag</option>
+                                <option value="Fly Ash">Fly Ash</option>
                             </select>
                             <small class="form-text text-muted">Komoditi</small>
                         </div>
@@ -55,17 +55,18 @@
 
 @push('css')
     <style>
+        th {
+            text-align: center;
+        }
         .aksi-buttons {
             display: flex;
             justify-content: center;
             gap: 5px;
         }
-
         .aksi-buttons a, .aksi-buttons button {
             flex-grow: 1;
             text-align: center;
         }
-
         table th {
             text-align: center;
             vertical-align: middle;
@@ -76,14 +77,15 @@
 @push('js')
     <script>
         $(document).ready(function() {
+            // Initialize DataTable
             var dataLevel = $('#table_ghopoven').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('ghopoven/list') }}",
-                    "type": "POST",
-                    "data": function(d) {
+                    url: "{{ url('ghopoven/list') }}",
+                    type: "POST",
+                    data: function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.no = $('#no').val();
+                        d.komoditi = $('#komoditi').val(); // Get the selected filter value
                     }
                 },
                 columns: [
@@ -95,82 +97,69 @@
                     },
                     {
                         data: "jarak",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "latitude",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "longitude",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "vendor",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "komoditi",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "desa",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "kecamatan",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "kabupaten",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "kap_ton_thn",
-                        className: "",
                         orderable: true,
-                        searchable: true
+                        searchable: true,
+                        render: function(data) {
+                            return new Intl.NumberFormat('id-ID').format(data);
+                        }
                     },
                     {
                         data: "konsumsi_ton_thn",
-                        className: "",
                         orderable: true,
                         searchable: true
                     },
                     {
                         data: "aksi",
-                        render: function(data, type, row) {
-                            return `
-                                <div class="aksi-buttons">
-                                    <a href="ghopoven/${row.no}" class="btn btn-sm btn-info">Detail</a>
-                                    <a href="ghopoven/${row.no}/edit" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger btn-delete" data-id="${row.no}">Hapus</button>
-                                </div>
-                            `;
-                        },
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width: "170px"
                     }
                 ]
             });
-            $('#no').on('change', function() {
-                dataLevel.ajax.reload();
+
+            // Event listener for filter
+            $('#komoditi').on('change', function() {
+                dataLevel.ajax.reload(); // Reload DataTable with the selected filter
             });
         });
     </script>

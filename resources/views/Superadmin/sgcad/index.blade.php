@@ -20,11 +20,13 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="no" id="no">
+                            <select class="form-control" name="komoditi" id="komoditi">
                                 <option value="">-- Semua --</option>
-                                @foreach ($sgcad as $i)
-                                    <option value="{{ $i->no }}">{{ $i->komoditi }}</option>
-                                @endforeach
+                                <option value="Cad Batugamping">Cad Batugamping</option>
+                                <option value="Pot Batugamping">Pot Batugamping</option>
+                                <option value="Cad Lempung">Cad Lempung</option>
+                                <option value="Pot Lempung">Pot Lempung</option>
+                                <option value="Pot Pasirkuarsa">Pot Pasirkuarsa</option>
                             </select>
                             <small class="form-text text-muted">Komoditi</small>
                         </div>
@@ -58,6 +60,9 @@
 
 @push('css')
     <style>
+        th {
+            text-align: center;
+        }
         .aksi-buttons {
             display: flex; /* Membuat tombol dalam satu baris (horizontal) */
             gap: 2px; /* Memberikan jarak antar tombol */
@@ -81,7 +86,7 @@
                     "type": "POST",
                     "data": function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.no = $('#no').val();
+                        d.komoditi = $('#komoditi').val();
                     }
                 },
                 columns: [
@@ -119,7 +124,11 @@
                         data: "sd_cadangan_ton",
                         className: "",
                         orderable: true,
-                        searchable: true
+                        searchable: true,
+                        render: function(data, type, row){
+                            return new Intl.NumberFormat('id-ID').format(data);
+                        },
+                        width: "150px"
                     },
                     {
                         data: "catatan",
@@ -155,7 +164,10 @@
                         data: "luas_ha",
                         className: "",
                         orderable: true,
-                        searchable: true
+                        searchable: true,
+                        // render: function(data) {
+                        //     return data !== null ? new Intl.NumberFormat('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data) : '';
+                        // }
                     },
                     {
                         data: "masa_berlaku_iup",
@@ -171,22 +183,14 @@
                     },
                     {
                         data: "aksi",
-                        render: function(data, type, row) {
-                            return `
-                                <div class="aksi-buttons">
-                                    <a href="sgcad/${row.no}" class="btn btn-sm btn-info">Detail</a>
-                                    <a href="sgcad/${row.no}/edit" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger btn-delete" data-id="${row.no}">Hapus</button>
-                                </div>
-                            `;
-                        },
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width:"170px"
                     }
                 ]
             });
-            $('#no').on('change', function() {
-                dataLevel.ajax.reload();
+            $('#komoditi').on('change', function() {
+                DataTable.ajax.reload();
             });
         });
     </script>

@@ -13,20 +13,20 @@ return new class extends Migration
     {
         Schema::create('ghopo_cad_bb', function (Blueprint $table) {
             $table->id('no');
-            $table->integer('jarak');
+            $table->decimal('jarak', 10, 1)->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
-            $table->integer('no_id');
+            $table->integer('no_id')->nullable();
             $table->string('komoditi');
             $table->string('lokasi_iup');
             $table->string('tipe_sd_cadangan');
             $table->integer('sd_cadangan_ton');
-            $table->string('catatan');
-            $table->string('status_penyelidikan');
-            $table->string('acuan');
+            $table->string('catatan')->nullable();
+            $table->string('status_penyelidikan')->nullable();
+            $table->string('acuan')->nullable();
             $table->string('kabupaten');
             $table->string('kecamatan');
-            $table->string('luas_ha');
+            $table->double('luas_ha')->nullable();
             $table->date('masa_berlaku_iup')->nullable();
             $table->date('masa_berlaku_ppkh')->nullable();
             $table->timestamps();

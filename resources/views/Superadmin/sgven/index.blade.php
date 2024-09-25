@@ -34,7 +34,7 @@
             <table class="table-bordered table-striped table-hover table-sm table" id="table_sgven">
                 <thead>
                     <tr>
-                        <th>no</th>
+                        <th>No</th>
                         <th>Jarak(km)</th>
                         <th>latitude</th>
                         <th>longitude</th>
@@ -55,6 +55,10 @@
 
 @push('css')
     <style>
+
+        th {
+            text-align: center;
+        }   
         .aksi-buttons {
             display: flex;
             justify-content: center;
@@ -145,7 +149,11 @@
                         data: "kap_ton_thn",
                         className: "",
                         orderable: true,
-                        searchable: true
+                        searchable: true,
+                        render: function(data, type, row){
+                            return new Intl.NumberFormat('id-ID').format(data);
+                        },
+                        width: "150px"
                     },
                     {
                         data: "konsumsi_ton_thn",
@@ -155,17 +163,9 @@
                     },
                     {
                         data: "aksi",
-                        render: function(data, type, row) {
-                            return `
-                                <div class="aksi-buttons">
-                                    <a href="sgven/${row.no}" class="btn btn-sm btn-info">Detail</a>
-                                    <a href="sgven/${row.no}/edit" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger btn-delete" data-id="${row.no}">Hapus</button>
-                                </div>
-                            `;
-                        },
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width:"170px"
                     }
                 ]
             });

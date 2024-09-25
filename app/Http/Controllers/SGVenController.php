@@ -11,7 +11,7 @@ class SGVenController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Vendor Bahan Baku di SIG - SG Rembang ',
+            'title' => 'Vendor Bahan Baku di SIG - SG Rembang ',
             'list' => ['Home', ' SG Rembang']
         ];
 

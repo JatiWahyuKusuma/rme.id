@@ -11,7 +11,7 @@ class GhopoVenController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Vendor Bahan Baku di SIG - GHOPO Tuban ',
+            'title' => 'Vendor Bahan Baku di SIG - GHOPO Tuban ',
             'list' => ['Home', ' GHOPO Tuban']
         ];
 
