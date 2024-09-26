@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CadGhopoController;
+use App\Http\Controllers\CadSGController;
 use App\Http\Controllers\GhopoCadController;
 use App\Http\Controllers\GhopoVenController;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +9,8 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SGCadController;
 use App\Http\Controllers\SGVenController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VenGhopoController;
+use App\Http\Controllers\VenSGController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +26,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('layout.template');
 });
-
+//Routes Superadmin
 Route::group(['prefix' => 'level'], function () {
     Route::get('/', [LevelController::class, 'index']);
     Route::post('/list', [LevelController::class, 'list']);
@@ -87,3 +91,50 @@ Route::group(['prefix' => 'sgven'], function () {
     Route::put('/{id}', [SGVenController::class, 'update']);
     Route::delete('/{id}', [SGVenController::class, 'destroy']);
 });
+
+//Routes Admin GHOPO Tuban
+Route::group(['prefix' => 'cadanganghopo'], function () {
+    Route::get('/', [CadGhopoController::class, 'index']);
+    Route::post('/list', [CadGhopoController::class, 'list']);
+    Route::get('/create', [CadGhopoController::class, 'create']);
+    Route::post('/', [CadGhopoController::class, 'store']);
+    Route::get('/{id}', [CadGhopoController::class, 'show']);
+    Route::get('/{id}/edit', [CadGhopoController::class, 'edit']);
+    Route::put('/{id}', [CadGhopoController::class, 'update']);
+    Route::delete('/{id}', [CadGhopoController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'vendorghopo'], function () {
+    Route::get('/', [VenGhopoController::class, 'index']);
+    Route::post('/list', [VenGhopoController::class, 'list']);
+    Route::get('/create', [VenGhopoController::class, 'create']);
+    Route::post('/', [VenGhopoController::class, 'store']);
+    Route::get('/{id}', [VenGhopoController::class, 'show']);
+    Route::get('/{id}/edit', [VenGhopoController::class, 'edit']);
+    Route::put('/{id}', [VenGhopoController::class, 'update']);
+    Route::delete('/{id}', [VenGhopoController::class, 'destroy']);
+});
+
+//Routes Admin SG Rembang
+Route::group(['prefix' => 'cadangansg'], function () {
+    Route::get('/', [CadSGController::class, 'index']);
+    Route::post('/list', [CadSGController::class, 'list']);
+    Route::get('/create', [CadSGController::class, 'create']);
+    Route::post('/', [CadSGController::class, 'store']);
+    Route::get('/{id}', [CadSGController::class, 'show']);
+    Route::get('/{id}/edit', [CadSGController::class, 'edit']);
+    Route::put('/{id}', [CadSGController::class, 'update']);
+    Route::delete('/{id}', [CadSGController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'vendorsg'], function () {
+    Route::get('/', [VenSGController::class, 'index']);
+    Route::post('/list', [VenSGController::class, 'list']);
+    Route::get('/create', [VenSGController::class, 'create']);
+    Route::post('/', [VenSGController::class, 'store']);
+    Route::get('/{id}', [VenSGController::class, 'show']);
+    Route::get('/{id}/edit', [VenSGController::class, 'edit']);
+    Route::put('/{id}', [VenSGController::class, 'update']);
+    Route::delete('/{id}', [VenSGController::class, 'destroy']);
+});
+

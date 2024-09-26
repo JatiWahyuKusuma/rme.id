@@ -26,27 +26,27 @@
   <!-- Site wrapper -->
   <div class="wrapper">
     <!-- Navbar -->
-    @include('layout.header')
+    @include('layoutSG.header')
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      {{-- <!-- Brand Logo -->
-      <a href="{{ url('/') }}" class="brand-link">
-        <img src="{{ asset('images/logoSIGputih.png') }}" alt="AdminLTE Logo"
+      <!-- Brand Logo -->
+      {{-- <a href="{{ url('/') }}" class="brand-link">
+        <img src="{{ asset('template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
           class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">RME.ID</span>
       </a> --}}
 
       <!-- Sidebar -->
-      @include('layout.sidebar')
+      @include('layoutSG.sidebar')
       <!-- /.sidebar -->
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      @include('layout.breadcrumb')
+      @include('layoutSG.breadcrumb')
 
       <!-- Main content -->
       <section class="content">
@@ -56,7 +56,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    @include('layout.footer')
+    @include('layoutSG.footer')
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
