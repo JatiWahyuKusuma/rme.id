@@ -79,7 +79,7 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataLevel = $('#table_sgcad').DataTable({
+            var dataTable = $('#table_sgcad').DataTable({
                 serverSide: true,
                 ajax: {
                     "url": "{{ url('sgcad/list') }}",
@@ -128,7 +128,6 @@
                         render: function(data, type, row){
                             return new Intl.NumberFormat('id-ID').format(data);
                         },
-                        width: "150px"
                     },
                     {
                         data: "catatan",
@@ -173,7 +172,8 @@
                         data: "masa_berlaku_iup",
                         className: "",
                         orderable: true,
-                        searchable: true
+                        searchable: true,
+                        width:"70px"
                     },
                     {
                         data: "masa_berlaku_ppkh",
@@ -190,7 +190,7 @@
                 ]
             });
             $('#komoditi').on('change', function() {
-                DataTable.ajax.reload();
+                dataTable.ajax.reload();
             });
         });
     </script>

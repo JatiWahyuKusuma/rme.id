@@ -20,10 +20,10 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="no" id="no">
+                            <select class="form-control" name="nama" id="nama">
                                 <option value="">-- Semua --</option>
                                 @foreach ($user as $i)
-                                    <option value="{{ $i->no }}">{{ $i->nama }}</option>
+                                    <option value="{{ $i->nama }}">{{ $i->nama }}</option>
                                 @endforeach
                             </select>
                             <small class="form-text text-muted">Nama</small>
@@ -64,7 +64,7 @@
                     "type": "POST",
                     "data": function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.level_id = $('#no').val();
+                        d.nama = $('#nama').val();
                     }
                 },
                 columns: [
@@ -100,7 +100,7 @@
                     }
                 ]
             });
-            $('#no').on('change', function() {
+            $('#nama').on('change', function() {
                 dataLevel.ajax.reload();
             });
         });

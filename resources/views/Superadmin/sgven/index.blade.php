@@ -20,11 +20,11 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="no" id="no">
+                            <select class="form-control" name="komoditi" id="komoditi">
                                 <option value="">-- Semua --</option>
-                                @foreach ($sgven as $i)
-                                    <option value="{{ $i->no }}">{{ $i->komoditi }}</option>
-                                @endforeach
+                                <option value="Purified Gypsum">Purified Gypsum</option>
+                                <option value="Copper Slag">Copper Slag</option>
+                                <option value="Fly Ash">Fly Ash</option>
                             </select>
                             <small class="form-text text-muted">Komoditi</small>
                         </div>
@@ -80,14 +80,14 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataLevel = $('#table_sgven').DataTable({
+            var dataTable = $('#table_sgven').DataTable({
                 serverSide: true,
                 ajax: {
                     "url": "{{ url('sgven/list') }}",
                     "type": "POST",
                     "data": function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.no = $('#no').val();
+                        d.komoditi = $('#komoditi').val()
                     }
                 },
                 columns: [
@@ -169,8 +169,8 @@
                     }
                 ]
             });
-            $('#no').on('change', function() {
-                dataLevel.ajax.reload();
+            $('#komoditi').on('change', function() {
+                dataTable.ajax.reload();
             });
         });
     </script>

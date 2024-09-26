@@ -33,6 +33,10 @@ class LevelController extends Controller
             $levels->where('kode_level', $request->kode_level);
         }
 
+        if ($request->nama_level) {
+            $levels->where('nama_level', $request->nama_level);
+        }
+
         return Datatables::of($levels)
             ->addIndexColumn()
             ->addColumn('aksi', function ($level) {

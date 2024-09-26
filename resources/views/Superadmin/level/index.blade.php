@@ -20,11 +20,10 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" name="level_id" id="level_id">
+                            <select class="form-control" name="nama_level" id="nama_level">
                                 <option value="">-- Semua --</option>
-                                @foreach ($level as $i)
-                                    <option value="{{ $i->level_id }}">{{ $i->nama_level }}</option>
-                                @endforeach
+                                <option value="Super Administrator" > Super Administrator </option>
+                                <option value="Administrator">Administrator</option>
                             </select>
                             <small class="form-text text-muted">Nama Level</small>
                         </div>
@@ -58,14 +57,14 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataLevel = $('#table_level').DataTable({
+            var dataTable = $('#table_level').DataTable({
                 serverSide: true,
                 ajax: {
                     "url": "{{ url('level/list') }}",
                     "type": "POST",
                     "data": function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
-                        d.level_id = $('#level_id').val();
+                        d.nama_level = $('#nama_level').val();
                     }
                 },
                 columns: [
@@ -95,8 +94,8 @@
                     }
                 ]
             });
-            $('#level_id').on('change', function() {
-                dataLevel.ajax.reload();
+            $('#nama_level').on('change', function() {
+                dataTable.ajax.reload();
             });
         });
     </script>

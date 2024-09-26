@@ -159,7 +159,7 @@
 
             // Event listener for filter
             $('#komoditi').on('change', function() {
-                dataLevel.ajax.reload(); // Reload DataTable with the selected filter
+                DataTable.ajax.reload(); // Reload DataTable with the selected filter
             });
         });
     </script>
