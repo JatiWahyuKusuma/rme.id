@@ -35,12 +35,18 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
+   'guards' => [
+        'superadmin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'superadmins',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -60,15 +66,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'superadmins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\SuperAdminModel::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminModel::class,
+        ],
     ],
 
     /*

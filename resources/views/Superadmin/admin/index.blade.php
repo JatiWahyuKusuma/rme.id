@@ -5,7 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('admin/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -22,7 +22,7 @@
                         <div class="col-3">
                             <select class="form-control" name="nama" id="nama">
                                 <option value="">-- Semua --</option>
-                                @foreach ($user as $i)
+                                @foreach ($admin as $i)
                                     <option value="{{ $i->nama }}">{{ $i->nama }}</option>
                                 @endforeach
                             </select>
@@ -31,13 +31,14 @@
                     </div>
                 </div>
             </div>
-            <table class="table-bordered table-striped table-hover table-sm table" id="table_user">
+            <table class="table-bordered table-striped table-hover table-sm table" id="table_admin">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Level Id</th>
                         <th>Nama</th>
                         <th>Email</th>
+                        <th>Opco</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -57,10 +58,10 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var dataLevel = $('#table_user').DataTable({
+            var dataLevel = $('#table_admin').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('user/list') }}",
+                    "url": "{{ url('admin/list') }}",
                     "type": "POST",
                     "data": function(d) {
                         d._token = '{{ csrf_token() }}'; // Add CSRF token
@@ -88,6 +89,12 @@
                     },
                     {
                         data: "email",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "opco",
                         className: "",
                         orderable: true,
                         searchable: true

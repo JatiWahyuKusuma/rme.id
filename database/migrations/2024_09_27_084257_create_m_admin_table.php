@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_user', function (Blueprint $table) {
+        Schema::create('m_admin', function (Blueprint $table) {
             $table->id('no');
             $table->unsignedBigInteger('level_id')->index();
             $table->string('nama');
             $table->string('email');
-            $table->string('password');
+            $table->string('opco');
+            $table->string('password')->nullable();
             $table->timestamps();
 
-            //foreign key kolom level_id di tabel m_level
             $table->foreign('level_id')->references('level_id')->on('m_level');
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_user');
+        Schema::dropIfExists('m_admin');
     }
 };

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CadGhopoController;
 use App\Http\Controllers\CadSGController;
+use App\Http\Controllers\DashboardCadanganSprAdmController;
+use App\Http\Controllers\DashboardVendorSprAdmController;
 use App\Http\Controllers\GhopoCadController;
 use App\Http\Controllers\GhopoVenController;
 use Illuminate\Support\Facades\Route;
@@ -11,7 +14,8 @@ use App\Http\Controllers\SGVenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VenGhopoController;
 use App\Http\Controllers\VenSGController;
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +30,35 @@ use App\Http\Controllers\VenSGController;
 Route::get('/', function () {
     return view('layout.template');
 });
+
+// Route Login
+Route::group(['prefix' => 'login'], function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::post('/', [LoginController::class, 'login_process'])->name('login');
+});
+Route::post('/keluar', [LogoutController::class, 'index'])->name('logout');
+
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::get('/dashboard_user', function () {
+        return view('user.dashboard');
+    });
+});
+
+Route::group(['middleware' => 'auth:superadmin'], function () {
+    Route::get('/ghopocad', [GhopoCadController::class, 'index'])->name('superadmin.ghopocad');
+});
+
 //Routes Superadmin
+
+Route::group(['prefix' => 'dashboardcadangan'], function () {
+    Route::get('/', [DashboardCadanganSprAdmController::class, 'index']);
+    Route::post('/list', [DashboardCadanganSprAdmController::class, 'list']);
+});
+Route::group(['prefix' => 'dashboardvendor'], function () {
+    Route::get('/', [DashboardVendorSprAdmController::class, 'index']);
+    Route::post('/list', [DashboardVendorSprAdmController::class, 'list']);
+});
+
 Route::group(['prefix' => 'level'], function () {
     Route::get('/', [LevelController::class, 'index']);
     Route::post('/list', [LevelController::class, 'list']);
@@ -38,15 +70,15 @@ Route::group(['prefix' => 'level'], function () {
     Route::delete('/{id}', [LevelController::class, 'destroy']);
 });
 
-Route::group(['prefix' => 'user'], function () {
-    Route::get('/', [UserController::class, 'index']);
-    Route::post('/list', [UserController::class, 'list']);
-    Route::get('/create', [UserController::class, 'create']);
-    Route::post('/', [UserController::class, 'store']);
-    Route::get('/{id}', [UserController::class, 'show']);
-    Route::get('/{id}/edit', [UserController::class, 'edit']);
-    Route::put('/{id}', [UserController::class, 'update']);
-    Route::delete('/{id}', [UserController::class, 'destroy']);
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', [AdminController::class, 'index']);
+    Route::post('/list', [AdminController::class, 'list']);
+    Route::get('/create', [AdminController::class, 'create']);
+    Route::post('/', [AdminController::class, 'store']);
+    Route::get('/{id}', [AdminController::class, 'show']);
+    Route::get('/{id}/edit', [AdminController::class, 'edit']);
+    Route::put('/{id}', [AdminController::class, 'update']);
+    Route::delete('/{id}', [AdminController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'ghopocad'], function () {

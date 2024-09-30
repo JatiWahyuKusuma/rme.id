@@ -8,10 +8,11 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
 
             <!-- Brand Logo --> 
-            <a href="{{ url('/') }}" class="brand-link"> 
-                <img src="{{ asset('images/logoSIGputih.png') }}" alt="AdminLTE Logo" 
-                class="brand-image elevation-3" style="width: auto; height: 100px;">  <!-- Increased Size and Removed img-circle -->
-            </a> 
+            <a href="{{ url('/') }}" class="brand-link d-flex justify-content-center">
+                <img src="{{ asset('images/logoSIGputih.png') }}" alt="AdminLTE Logo"
+                class="brand-image elevation-3" style="width: 170px; height: auto; max-height: 100px;">                
+            </a>
+            
             <!-- Sidebar user panel (optional) --> 
             <div class="user-panel mt-3 pb-3 mb-3 d-flex"> 
                 <div class="image"> 

@@ -7,14 +7,13 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('user') }}" class="form-horizontal">
+            <form method="POST" action="{{ url('admin') }}" class="form-horizontal">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Level ID</label>
                     <div class="col-11">
                         <select class="form-control" id="level_id" name="level_id" required>
                             <option value="">-- Pilih Level --</option>
-                            <option value="1" {{ old('level_id') == '1' ? 'selected' : '' }}>Super Admin</option>
                             <option value="2" {{ old('level_id') == '2' ? 'selected' : '' }}>Admin Opco</option>
                         </select>
                         @error('level_id')
@@ -43,6 +42,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Opco</label>
+                    <div class="col-11">
+                        <input type="opco" class="form-control" id="opco" name="opco"
+                            value="{{ old('opco') }}" required>
+                        @error('opco')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Password</label>
                     <div class="col-11">
                         <input type="password" class="form-control" id="password" name="password"
@@ -56,7 +65,7 @@
                     <label class="col-1 control-label col-form-label"></label>
                     <div class="col-11">
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                        <a class="btn btn-sm btn-default ml-1" href="{{ url('user') }}">Kembali</a>
+                        <a class="btn btn-sm btn-default ml-1" href="{{ url('admin') }}">Kembali</a>
                     </div>
                 </div>
             </form>

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,28 +17,23 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'no' => 1,
-                'level_id' => 1,
-                'nama' => 'Superadmin1',
-                'email' => 'superadmin1@gmail.com',
-                'password' => Hash::make('12345678'),
+                'level_id' => 2,
+                'nama' => 'Admin GHOPO',
+                'email' => 'adminghopo@gmail.com',
+                'opco' =>'GHOPO Tuban',
+                'password' => Hash::make('adminghopo123'),
             ],
             [
                 'no' => 2,
                 'level_id' => 2,
-                'nama' => 'Admin GHOPO',
-                'email' => 'adminghopo@gmail.com',
-                'password' => Hash::make('12345'),
-            ],
-            [
-                'no' => 3,
-                'level_id' => 2,
                 'nama' => 'Admin SG',
                 'email' => 'adminsg@gmail.com',
-                'password' => Hash::make('54321'),
+                'opco' =>'SG Rembang',
+                'password' => Hash::make('adminsg123'),
             ],
 
         ];
 
-        DB::table('m_user')->insert($data);
-    }  
+        DB::table('m_admin')->insert($data);
+    }
 }

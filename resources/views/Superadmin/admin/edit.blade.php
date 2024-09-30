@@ -7,21 +7,21 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            @empty($user)
+            @empty($admin)
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
                     Data yang Anda cari tidak ditemukan.
                 </div>
-                <a href="{{ url('user') }}" class="btn btn-sm btn-default mt 2">Kembali</a>
+                <a href="{{ url('admin') }}" class="btn btn-sm btn-default mt 2">Kembali</a>
             @else
-                <form method="POST" action="{{ url('/user/' . $user->no) }}" class="form-horizontal">
+                <form method="POST" action="{{ url('/admin/' . $admin->no) }}" class="form-horizontal">
                     @csrf
                     {!! method_field('PUT') !!}
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Level Id</label>
                         <div class="col-11">
                             <input type="text" class="form-control" id="level_id" name="level_id"
-                                value="{{ old('level_id', $user->level_id) }}" required>
+                                value="{{ old('level_id', $admin->level_id) }}" required>
                             @error('level_id')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
@@ -31,7 +31,7 @@
                         <label class="col-1 control-label col-form-label">Nama</label>
                         <div class="col-11">
                             <input type="text" class="form-control" id="nama" name="nama"
-                                value="{{ old('user_name', $user->nama) }}" required>
+                                value="{{ old('admin_name', $admin->nama) }}" required>
                             @error('nama')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
@@ -41,8 +41,18 @@
                         <label class="col-1 control-label col-form-label">Email</label>
                         <div class="col-11">
                             <input type="text" class="form-control" id="email" name="email"
-                                value="{{ old('user_name', $user->email) }}" required>
+                                value="{{ old('admin_name', $admin->email) }}" required>
                             @error('email')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Opco</label>
+                        <div class="col-11">
+                            <input type="text" class="form-control" id="opco" name="opco"
+                                value="{{ old('admin_name', $admin->opco) }}" required>
+                            @error('opco')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -54,7 +64,7 @@
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @else
                                 <small class="form-text text-muted">Abaikan (jangan diisi) jika tidak ingin mengganti password
-                                    user.</small>
+                                    admin.</small>
                             @enderror
                         </div>
                     </div>
@@ -62,7 +72,7 @@
                         <label class="col-1 control-label col-form-label"></label>
                         <div class="col-11">
                             <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                            <a class="btn btn-sm btn-default ml-1" href="{{ url('user') }}">Kembali</a>
+                            <a class="btn btn-sm btn-default ml-1" href="{{ url('admin') }}">Kembali</a>
                         </div>
                     </div>
                 </form>
